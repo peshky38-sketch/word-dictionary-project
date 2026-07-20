@@ -12,31 +12,22 @@ const form = document.getElementById( "search-form" );
 const input = document.getElementById( "word-input" );
 
 const results = document.getElementById( "results" );
-
 const loading = document.getElementById( "loading" );
-
 const error = document.getElementById( "error-message" );
 
 const wordTitle = document.getElementById( "word-title" );
-
 const phonetic = document.getElementById( "phonetic" );
-
 const audioButton = document.getElementById( "audio-button" );
-
 const audioPlayer = document.getElementById( "audio-player" );
 
 const partOfSpeech = document.getElementById( "part-of-speech" );
-
 const definition = document.getElementById( "definition" );
-
 const example = document.getElementById( "example" );
-
 const synonyms = document.getElementById( "synonyms" );
-
 const sourceLink = document.getElementById( "source-link" );
 
 // ================================
-// Hide Sections
+// Initial State
 // ================================
 
 results.style.display = "none";
@@ -45,7 +36,7 @@ error.style.display = "none";
 audioButton.style.display = "none";
 
 // ================================
-// Form Submission
+// Search Form
 // ================================
 
 form.addEventListener( "submit", function ( event ) {
@@ -67,15 +58,13 @@ form.addEventListener( "submit", function ( event ) {
 } );
 
 // ================================
-// Fetch Dictionary Data
+// Fetch Word
 // ================================
 
 async function fetchWord( word ) {
 
     loading.style.display = "block";
-
     results.style.display = "none";
-
     error.style.display = "none";
 
     try {
@@ -96,7 +85,7 @@ async function fetchWord( word ) {
 
     catch ( err ) {
 
-        showError( "Word not found." );
+        showError( "Word not found. Please try another word." );
 
     }
 
@@ -109,16 +98,23 @@ async function fetchWord( word ) {
 }
 
 // ================================
-// Display Data
+// Display Dictionary Data
 // ================================
 
 function displayData( data ) {
 
     results.style.display = "block";
+    error.style.display = "none";
+
+    // Word
 
     wordTitle.textContent = data.word;
 
+    // Pronunciation
+
     phonetic.textContent = data.phonetic || "Pronunciation unavailable";
+
+    // Meaning
 
     const meaning = data.meanings[ 0 ];
 
@@ -137,11 +133,27 @@ function displayData( data ) {
 
     let synonymArray = [];
 
-    if ( meaning.definitions[ 0 ].synonyms ) {
+    data.meanings.forEach( function ( meaning ) {
 
-        synonymArray = meaning.definitions[ 0 ].synonyms;
+        if ( meaning.synonyms ) {
 
-    }
+            synonymArray.push( ...meaning.synonyms );
+
+        }
+
+        meaning.definitions.forEach( function ( definition ) {
+
+            if ( definition.synonyms ) {
+
+                synonymArray.push( ...definition.synonyms );
+
+            }
+
+        } );
+
+    } );
+
+    synonymArray = [ ...new Set( synonymArray ) ];
 
     if ( synonymArray.length > 0 ) {
 
@@ -175,9 +187,10 @@ function displayData( data ) {
 
         audioPlayer.src = audio.audio;
 
-        audioButton.style.display = "inline-block";
+        audioButton.style.display = "flex";
 
-        audioButton.innerHTML = "&#9658;"; // Play icon
+        audioButton.innerHTML = "🔊";
+
         audioButton.title = "Play pronunciation";
 
         audioButton.onclick = function () {
@@ -193,12 +206,14 @@ function displayData( data ) {
     }
 
     // ================================
-    // Source
+    // Source Link
     // ================================
 
     if ( data.sourceUrls && data.sourceUrls.length > 0 ) {
 
         sourceLink.href = data.sourceUrls[ 0 ];
+
+        sourceLink.textContent = "View Dictionary Source";
 
         sourceLink.style.display = "inline";
 
@@ -213,15 +228,17 @@ function displayData( data ) {
 }
 
 // ================================
-// Error Message
+// Error Function
 // ================================
 
 function showError( message ) {
 
+    loading.style.display = "none";
+
+    results.style.display = "none";
+
     error.style.display = "block";
 
     error.textContent = message;
-
-    results.style.display = "none";
 
 }
