@@ -71,3 +71,100 @@ form.addEventListener( "submit", function ( event ) {
         } );
 
 } );
+function displayWord( data ) {
+
+    results.style.display = "block";
+
+    word.textContent = data.word;
+
+    phonetic.textContent = data.phonetic || "Pronunciation unavailable";
+
+    const meaning = data.meanings[ 0 ];
+
+    partOfSpeech.textContent = meaning.partOfSpeech;
+
+    definition.textContent = meaning.definitions[ 0 ].definition;
+
+    if ( meaning.definitions[ 0 ].example ) {
+        example.textContent = meaning.definitions[ 0 ].example;
+    } else {
+        example.textContent = "No example available.";
+    }
+
+    synonyms.innerHTML = "";
+
+    let synonymArray = [];
+
+    if ( meaning.definitions[ 0 ].synonyms.length > 0 ) {
+
+        synonymArray = meaning.definitions[ 0 ].synonyms;
+
+    } else if ( meaning.synonyms.length > 0 ) {
+
+        synonymArray = meaning.synonyms;
+
+    }
+
+    if ( synonymArray.length > 0 ) {
+
+        synonymArray.slice( 0, 10 ).forEach( function ( item ) {
+
+            const span = document.createElement( "span" );
+
+            span.textContent = item;
+
+            synonyms.appendChild( span );
+
+        } );
+
+    } else {
+
+        synonyms.innerHTML = "<span>No synonyms available.</span>";
+
+    }
+
+    const audioObject = data.phonetics.find( function ( item ) {
+
+        return item.audio !== "";
+
+    } );
+
+    if ( audioObject ) {
+
+        audioPlayer.src = audioObject.audio;
+
+        audioButton.style.display = "inline-block";
+
+        audioButton.onclick = function () {
+
+            audioPlayer.play();
+
+        };
+
+    } else {
+
+        audioButton.style.display = "none";
+
+    }
+
+    if ( data.sourceUrls && data.sourceUrls.length > 0 ) {
+
+        source.innerHTML = `<a href="${ data.sourceUrls[ 0 ] }" target="_blank">View Source</a>`;
+
+    } else {
+
+        source.textContent = "No source available.";
+
+    }
+
+}
+
+function showError( message ) {
+
+    error.style.display = "block";
+
+    error.textContent = message;
+
+    results.style.display = "none";
+
+}
