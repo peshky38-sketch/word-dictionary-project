@@ -1,29 +1,29 @@
-// ============================
+// ================================
 // Free Dictionary API
-// ============================
+// ================================
 
 const apiURL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
-// ============================
-// Selecting Elements
-// ============================
+// ================================
+// HTML Elements
+// ================================
 
 const form = document.getElementById( "search-form" );
-const input = document.getElementById( "search-input" );
+const input = document.getElementById( "word-input" );
 
 const results = document.getElementById( "results" );
 
 const loading = document.getElementById( "loading" );
 
-const error = document.getElementById( "error" );
+const error = document.getElementById( "error-message" );
 
-const wordTitle = document.getElementById( "word" );
+const wordTitle = document.getElementById( "word-title" );
 
 const phonetic = document.getElementById( "phonetic" );
 
-const audioButton = document.getElementById( "audio-btn" );
+const audioButton = document.getElementById( "audio-button" );
 
-const audioPlayer = document.getElementById( "audio" );
+const audioPlayer = document.getElementById( "audio-player" );
 
 const partOfSpeech = document.getElementById( "part-of-speech" );
 
@@ -33,19 +33,20 @@ const example = document.getElementById( "example" );
 
 const synonyms = document.getElementById( "synonyms" );
 
-const source = document.getElementById( "source" );
+const sourceLink = document.getElementById( "source-link" );
 
-// ============================
-// Hide Elements Initially
-// ============================
+// ================================
+// Hide Sections
+// ================================
 
 results.style.display = "none";
 loading.style.display = "none";
 error.style.display = "none";
+audioButton.style.display = "none";
 
-// ============================
-// Form Event
-// ============================
+// ================================
+// Form Submission
+// ================================
 
 form.addEventListener( "submit", function ( event ) {
 
@@ -61,15 +62,15 @@ form.addEventListener( "submit", function ( event ) {
 
     }
 
-    getWord( word );
+    fetchWord( word );
 
 } );
 
-// ============================
-// Fetch Word
-// ============================
+// ================================
+// Fetch Dictionary Data
+// ================================
 
-async function getWord( word ) {
+async function fetchWord( word ) {
 
     loading.style.display = "block";
 
@@ -89,13 +90,13 @@ async function getWord( word ) {
 
         const data = await response.json();
 
-        displayWord( data[ 0 ] );
+        displayData( data[ 0 ] );
 
     }
 
     catch ( err ) {
 
-        showError( "Sorry! Word not found." );
+        showError( "Word not found." );
 
     }
 
@@ -107,11 +108,11 @@ async function getWord( word ) {
 
 }
 
-// ============================
-// Display Word
-// ============================
+// ================================
+// Display Data
+// ================================
 
-function displayWord( data ) {
+function displayData( data ) {
 
     results.style.display = "block";
 
@@ -119,64 +120,36 @@ function displayWord( data ) {
 
     phonetic.textContent = data.phonetic || "Pronunciation unavailable";
 
-    // Audio
-    const audioObject = data.phonetics.find( item => item.audio );
-
-    if ( audioObject ) {
-
-        audioPlayer.src = audioObject.audio;
-
-        audioButton.style.display = "inline-block";
-
-        audioButton.onclick = function () {
-
-            audioPlayer.play();
-
-        };
-
-    }
-
-    else {
-
-        audioButton.style.display = "none";
-
-    }
-
-    // Meaning
-
     const meaning = data.meanings[ 0 ];
 
     partOfSpeech.textContent = meaning.partOfSpeech;
 
     definition.textContent = meaning.definitions[ 0 ].definition;
 
-    if ( meaning.definitions[ 0 ].example ) {
+    example.textContent =
+        meaning.definitions[ 0 ].example || "No example available.";
 
-        example.textContent = meaning.definitions[ 0 ].example;
-
-    }
-
-    else {
-
-        example.textContent = "No example available.";
-
-    }
-
-    // ============================
+    // ================================
     // Synonyms
-    // ============================
+    // ================================
 
     synonyms.innerHTML = "";
 
-    const synonymList = meaning.definitions[ 0 ].synonyms || meaning.synonyms || [];
+    let synonymArray = [];
 
-    if ( synonymList.length > 0 ) {
+    if ( meaning.definitions[ 0 ].synonyms ) {
 
-        synonymList.slice( 0, 10 ).forEach( function ( synonym ) {
+        synonymArray = meaning.definitions[ 0 ].synonyms;
+
+    }
+
+    if ( synonymArray.length > 0 ) {
+
+        synonymArray.slice( 0, 10 ).forEach( function ( item ) {
 
             const span = document.createElement( "span" );
 
-            span.textContent = synonym;
+            span.textContent = item;
 
             synonyms.appendChild( span );
 
@@ -188,29 +161,59 @@ function displayWord( data ) {
 
     }
 
-    // ============================
-    // Source Link
-    // ============================
+    // ================================
+    // Audio
+    // ================================
 
-    if ( data.sourceUrls && data.sourceUrls.length > 0 ) {
+    const audio = data.phonetics.find( function ( item ) {
 
-        source.innerHTML = `
-            <a href="${ data.sourceUrls[ 0 ] }" target="_blank">
-                View Source
-            </a>
-        `;
+        return item.audio && item.audio !== "";
+
+    } );
+
+    if ( audio ) {
+
+        audioPlayer.src = audio.audio;
+
+        audioButton.style.display = "inline-block";
+
+        audioButton.innerHTML = "🔊";
+
+        audioButton.onclick = function () {
+
+            audioPlayer.play();
+
+        };
 
     } else {
 
-        source.textContent = "No source available.";
+        audioButton.style.display = "none";
+
+    }
+
+    // ================================
+    // Source
+    // ================================
+
+    if ( data.sourceUrls && data.sourceUrls.length > 0 ) {
+
+        sourceLink.href = data.sourceUrls[ 0 ];
+
+        sourceLink.style.display = "inline";
+
+    } else {
+
+        sourceLink.removeAttribute( "href" );
+
+        sourceLink.textContent = "No source available";
 
     }
 
 }
 
-// ============================
-// Error Function
-// ============================
+// ================================
+// Error Message
+// ================================
 
 function showError( message ) {
 
