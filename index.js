@@ -177,7 +177,7 @@ function displayData( data ) {
 
         audioButton.style.display = "inline-block";
 
-        audioButton.innerHTML = "🔊";
+        audioButton.innerHTML = "&#9658;"; // Play icon
         audioButton.title = "Play pronunciation";
 
         audioButton.onclick = function () {
