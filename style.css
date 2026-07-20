@@ -90,64 +90,47 @@ header p{
 /* ==========================
    Search Form
 ========================== */
-form{
+/* ==========================
+   Search Form
+========================== */
 
+.search-form{
     display:flex;
-
     gap:15px;
-
     margin-bottom:35px;
-
 }
 
-input{
-
+.search-form input{
     flex:1;
-
-    padding:18px;
-
-    border-radius:15px;
-
+    padding:16px 20px;
     border:2px solid #dbeafe;
-
-    font-size:17px;
-
-    transition:.4s;
-
-}
-
-input:focus{
-
-    border-color:#2563eb;
-
-    box-shadow:0 0 15px rgba(37,99,235,.3);
-
-}
-
-button{
-
-    background:#2563eb;
-
-    color:white;
-
-    border:none;
-
-    padding:18px 35px;
-
     border-radius:15px;
-
-    font-weight:600;
-
+    font-size:17px;
+    outline:none;
     transition:.3s;
-
 }
 
-button:hover{
+.search-form input:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 12px rgba(37,99,235,.3);
+}
 
+.search-form button{
+    width:160px;
+    padding:16px;
+    border:none;
+    border-radius:15px;
+    background:#2563eb;
+    color:#fff;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.search-form button:hover{
     background:#1d4ed8;
-
-    transform:translateY(-3px);
-
+    transform:translateY(-2px);
 }
 
 /* ==========================
@@ -156,6 +139,11 @@ button:hover{
 
 .results{
     display:none;
+    margin-top:30px;
+    background:#f9fbff;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 .word-header{
