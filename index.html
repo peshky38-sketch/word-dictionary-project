@@ -15,88 +15,98 @@
     </head>
 
     <body>
-        <header class="header">
-            <h1> Wordly Dictionary</h1>
-            <p>Search for any English word and learn its meaning immediately.</p>
-        </header>
 
-        <!-- Search Form -->
-        <form id="search-form" class="search-form" aria-label="Dictionary search form">
+        <body>
 
-            <input type="text" id="word-input" placeholder="Enter a word..." aria-label="Enter a word to search"
-                autocomplete="off" required />
+            <div class="container">
 
-            <button type="submit" aria-label="Search for word">
-                Search
-            </button>
+                <!-- Header -->
+                <header class="header">
+                    <h1> Wordly Dictionary</h1>
+                    <p>Search for any English word and learn its meaning immediately.</p>
+                </header>
 
-        </form>
-        <p id="error-message" class="error-message" aria-live="polite"></p>
+                <!-- Search Form -->
+                <form id="search-form" class="search-form" aria-label="Dictionary search form">
 
-        <!-- Results Section -->
-        <section id="results" class="results hidden" aria-live="polite">
+                    <input type="text" id="word-input" placeholder="Enter a word..." aria-label="Enter a word to search"
+                        autocomplete="off" required />
 
-            <!-- Word and Pronunciation -->
-            <div class="word-header">
+                    <button type="submit" aria-label="Search for word">
+                        Search
+                    </button>
 
-                <div>
-                    <h2 id="word-title"></h2>
-                    <p id="phonetic" class="phonetic"></p>
+                </form>
+                <p id="error-message" class="error-message" aria-live="polite"></p>
+
+                <!-- Results Section -->
+                <section id="results" class="results hidden" aria-live="polite">
+
+                    <!-- Word and Pronunciation -->
+                    <div class="word-header">
+
+                        <div>
+                            <h2 id="word-title"></h2>
+                            <p id="phonetic" class="phonetic"></p>
+                        </div>
+
+                        <button id="audio-button" class="audio-button hidden" aria-label="Play pronunciation">
+
+                        </button>
+
+                    </div>
+
+                    <audio id="audio-player"></audio>
+
+                    <!-- Part of Speech -->
+                    <div class="info-block">
+                        <h3>Part of Speech</h3>
+                        <p id="part-of-speech"></p>
+                    </div>
+
+                    <!-- Definition -->
+                    <div class="info-block">
+                        <h3>Definition</h3>
+                        <p id="definition"></p>
+                    </div>
+
+                    <!-- Example -->
+                    <div class="info-block">
+                        <h3>Example</h3>
+                        <p id="example"></p>
+                    </div>
+
+                    <!-- Synonyms -->
+                    <div class="info-block">
+                        <h3>Synonyms</h3>
+                        <div id="synonyms" class="synonyms"></div>
+                    </div>
+
+                    <!-- Source -->
+                    <div class="source-block">
+                        <p>
+                            Source:
+                            <a id="source-link" href="#" target="_blank" rel="noopener noreferrer">
+                                View Dictionary Source
+                            </a>
+                        </p>
+                    </div>
+
+                </section>
+
+                <!-- Loading Indicator -->
+                <div id="loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Searching dictionary...</p>
                 </div>
 
-                <button id="audio-button" class="audio-button hidden" aria-label="Play pronunciation">
-
-                </button>
+                </main>
 
             </div>
 
-            <audio id="audio-player"></audio>
 
-            <!-- Part of Speech -->
-            <div class="info-block">
-                <h3>Part of Speech</h3>
-                <p id="part-of-speech"></p>
-            </div>
 
-            <!-- Definition -->
-            <div class="info-block">
-                <h3>Definition</h3>
-                <p id="definition"></p>
-            </div>
-
-            <!-- Example -->
-            <div class="info-block">
-                <h3>Example</h3>
-                <p id="example"></p>
-            </div>
-
-            <!-- Synonyms -->
-            <div class="info-block">
-                <h3>Synonyms</h3>
-                <div id="synonyms" class="synonyms"></div>
-            </div>
-
-            <!-- Source -->
-            <div class="source-block">
-                <p>
-                    Source:
-                    <a id="source-link" href="#" target="_blank" rel="noopener noreferrer">
-                        View Dictionary Source
-                    </a>
-                </p>
-            </div>
-
-        </section>
-
-        <!-- Loading Indicator -->
-        <div id="loading" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Searching dictionary...</p>
-        </div>
-
-        </main>
-
-        <script src="index.js"></script>
-    </body>
+            <script src="index.js"></script>
+        </body>
 
 </html>
