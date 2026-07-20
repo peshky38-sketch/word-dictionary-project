@@ -176,21 +176,34 @@ button:hover{
     margin-top:5px;
 }
 
-.audio-btn{
-    width:60px;
-    height:60px;
+.audio-button{
+
+    width:65px;
+
+    height:65px;
+
     border-radius:50%;
-    background:#4338ca;
-    color:white;
+
     border:none;
-    font-size:24px;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:28px;
+
     cursor:pointer;
+
     transition:.3s;
+
 }
 
-.audio-btn:hover{
-    background:#312e81;
-    transform:scale(1.08);
+.audio-button:hover{
+
+    transform:scale(1.1);
+
+    background:#1d4ed8;
+
 }
 
 /* ==========================
@@ -287,13 +300,32 @@ button:hover{
    Loading
 ========================== */
 
-.loading{
-    display:none;
-    text-align:center;
-    color:#4338ca;
-    font-size:18px;
-    font-weight:600;
-    margin-top:20px;
+.spinner{
+
+    width:45px;
+
+    height:45px;
+
+    margin:auto;
+
+    border:5px solid #ddd;
+
+    border-top:5px solid #2563eb;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+    100%{
+
+        transform:rotate(360deg);
+
+    }
+
 }
 
 /* ==========================
