@@ -22,3 +22,258 @@ body {
     padding: 30px;
 }
 
+      /* ===========================
+   Main Container
+=========================== */
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 20px 45px rgba(0,0,0,.18);
+    animation: fadeIn .7s ease;
+}
+
+/* ===========================
+   Heading
+=========================== */
+
+header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+header h1{
+    color:#4f46e5;
+    font-size:2.3rem;
+}
+
+header p{
+    margin-top:10px;
+    color:#666;
+}
+
+/* ===========================
+   Search Form
+=========================== */
+
+form{
+    display:flex;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+input{
+    flex:1;
+    padding:15px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
+    transition:.3s;
+}
+
+input:focus{
+    outline:none;
+    border-color:#4f46e5;
+}
+
+button{
+    padding:15px 25px;
+    background:#4f46e5;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+    transition:.3s;
+}
+
+button:hover{
+    background:#4338ca;
+    transform:translateY(-2px);
+}
+
+/* ===========================
+   Results
+=========================== */
+
+.results{
+    display:none;
+    animation:fadeIn .6s ease;
+}
+
+.word-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.word-header h2{
+    color:#222;
+    font-size:32px;
+}
+
+.phonetic{
+    color:#666;
+    margin-top:5px;
+}
+
+.audio-btn{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    font-size:22px;
+}
+
+/* ===========================
+   Cards
+=========================== */
+
+.card{
+    background:#f7f7ff;
+    border-left:6px solid #4f46e5;
+    border-radius:10px;
+    padding:20px;
+    margin-bottom:18px;
+}
+
+.card h3{
+    color:#4f46e5;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#444;
+    line-height:1.7;
+}
+
+.card ul{
+    margin-top:10px;
+    padding-left:20px;
+}
+
+.card li{
+    margin-bottom:8px;
+}
+
+/* ===========================
+   Synonyms
+=========================== */
+
+.synonyms{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:10px;
+}
+
+.synonyms span{
+    background:#e0e7ff;
+    color:#4338ca;
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:14px;
+    transition:.3s;
+}
+
+.synonyms span:hover{
+    background:#4f46e5;
+    color:white;
+}
+
+/* ===========================
+   Source Link
+=========================== */
+
+.source{
+    margin-top:20px;
+    text-align:center;
+}
+
+.source a{
+    color:#4f46e5;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.source a:hover{
+    text-decoration:underline;
+}
+
+/* ===========================
+   Error Message
+=========================== */
+
+.error{
+    display:none;
+    background:#ffe5e5;
+    color:#b00020;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:600;
+}
+
+/* ===========================
+   Loading
+=========================== */
+
+.loading{
+    display:none;
+    text-align:center;
+    font-size:18px;
+    color:#4f46e5;
+    margin-top:20px;
+}
+
+/* ===========================
+   Animation
+=========================== */
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:700px){
+
+    .container{
+        padding:25px;
+    }
+
+    form{
+        flex-direction:column;
+    }
+
+    button{
+        width:100%;
+    }
+
+    .word-header{
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+
+    .word-header h2{
+        font-size:28px;
+    }
+}
+
+
+
