@@ -178,6 +178,7 @@ function displayData( data ) {
         audioButton.style.display = "inline-block";
 
         audioButton.innerHTML = "🔊";
+        audioButton.title = "Play pronunciation";
 
         audioButton.onclick = function () {
 
