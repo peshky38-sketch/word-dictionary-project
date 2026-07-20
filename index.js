@@ -161,3 +161,63 @@ function displayWord( data ) {
         example.textContent = "No example available.";
 
     }
+
+    // ============================
+    // Synonyms
+    // ============================
+
+    synonyms.innerHTML = "";
+
+    const synonymList = meaning.definitions[ 0 ].synonyms || meaning.synonyms || [];
+
+    if ( synonymList.length > 0 ) {
+
+        synonymList.slice( 0, 10 ).forEach( function ( synonym ) {
+
+            const span = document.createElement( "span" );
+
+            span.textContent = synonym;
+
+            synonyms.appendChild( span );
+
+        } );
+
+    } else {
+
+        synonyms.innerHTML = "<span>No synonyms available.</span>";
+
+    }
+
+    // ============================
+    // Source Link
+    // ============================
+
+    if ( data.sourceUrls && data.sourceUrls.length > 0 ) {
+
+        source.innerHTML = `
+            <a href="${ data.sourceUrls[ 0 ] }" target="_blank">
+                View Source
+            </a>
+        `;
+
+    } else {
+
+        source.textContent = "No source available.";
+
+    }
+
+}
+
+// ============================
+// Error Function
+// ============================
+
+function showError( message ) {
+
+    error.style.display = "block";
+
+    error.textContent = message;
+
+    results.style.display = "none";
+
+}
