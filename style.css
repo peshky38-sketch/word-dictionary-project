@@ -190,13 +190,14 @@ button:hover{
    Audio Button
 ========================== */
 
+/* ==========================
+   Audio Button
+========================== */
 
 .audio-button{
 
-    width:50px;
-    height:50px;
-
-    min-width:50px;
+    width:55px;
+    height:55px;
 
     display:flex;
     justify-content:center;
@@ -209,21 +210,25 @@ button:hover{
 
     color:#fff;
 
-    font-size:22px;
+    font-size:24px;
 
     cursor:pointer;
 
-    transition:.3s;
+    flex-shrink:0;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    padding:0;
+
+    box-shadow:0 8px 18px rgba(37,99,235,.35);
+
+    transition:.3s;
 
 }
 
 .audio-button:hover{
 
-    background:#1d4ed8;
+    transform:scale(1.08);
 
-    transform:scale(1.05);
+    background:#1d4ed8;
 
 }
 
